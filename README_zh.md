@@ -3,19 +3,19 @@
 [中文文档](./README_zh.md)   [document](./README.md)
 
 Build knowledge atlas from your studying files
-- [install](#install)
+- [安装](#%E5%AE%89%E8%A3%85)
 - [goal](#goal)
-- [usage](#usage)
-- [develop](#develop)
-  * [file structure](#file-structure)
-  * [run tests](#run-tests)
-- [license](#license)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
+- [开发](#%E5%BC%80%E5%8F%91)
+  * [文件结构](#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84)
+  * [运行测试用例](#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B)
+- [许可证](#%E8%AE%B8%E5%8F%AF%E8%AF%81)
 
-## install
+## 安装
 
-`npm i knowledge-atlas-builder --save` or `npm i knowledge-atlas-builder --save-dev`
+`npm i knowledge-atlas-builder --save` 或者 `npm i knowledge-atlas-builder --save-dev`
 
-Install on global, using `npm i knowledge-atlas-builder -g`
+全局安装, 使用 `npm i knowledge-atlas-builder -g`
 
 ## goal
 
@@ -29,7 +29,7 @@ The knowledge atlas can be used to:
 
    (3) even test
 
-## usage
+## 使用方法
 
 
 
@@ -42,9 +42,9 @@ The knowledge atlas can be used to:
 
 
 
-## develop
+## 开发
 
-### file structure
+### 文件结构
 
 ```
 .
@@ -62,11 +62,11 @@ The knowledge atlas can be used to:
 ```
 
 
-### run tests
+### 运行测试用例
 
 `npm test`
 
-## license
+## 许可证
 
 MIT License
 

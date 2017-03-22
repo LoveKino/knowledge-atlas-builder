@@ -1,0 +1,32 @@
+{
+  "name": "knowledge-atlas-builder",
+  "version": "0.0.1",
+  "description": "Build knowledge atlas from your studying files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"test/function/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoveKino/knowledge-atlas-builder.git"
+  },
+  "keywords": [
+    "knowledge",
+    "atlas",
+    "builder"
+  ],
+  "author": "ddchen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoveKino/knowledge-atlas-builder/issues"
+  },
+  "homepage": "https://github.com/LoveKino/knowledge-atlas-builder#readme",
+  "devDependencies": {
+    "readme-builder": "0.0.4",
+    "webpack": "^2.3.0"
+  },
+  "dependencies": {
+    "es6-promisify": "^5.0.0",
+    "yargs": "^7.0.2"
+  }
+}
