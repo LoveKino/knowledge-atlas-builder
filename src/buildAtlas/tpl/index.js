@@ -1324,6 +1324,7 @@ let PageView = view(({
             path: fileInfo.path,
             onNav: (part, index, parts) => {
                 let path = parts.slice(1, index + 1).join('/');
+
                 getAtlasPageData(path).then(({
                     fileInfo, topics
                 }) => {
