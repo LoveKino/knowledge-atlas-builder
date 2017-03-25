@@ -1,0 +1,1 @@
+window.jsData("dirTreeInfo", {"path":"","name":"shell","type":"directory","files":[{"path":"basic.sh","name":"basic.sh","type":"file","files":[]},{"path":"more.sh","name":"more.sh","type":"file","files":[]},{"path":"next","name":"next","type":"directory","files":[{"path":"next/admin.sh","name":"admin.sh","type":"file","files":[]}]}]});

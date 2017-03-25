@@ -4,7 +4,9 @@
   "description": "Build knowledge atlas from your studying files",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"test/function/**/*.js\""
+    "test": "mocha \"test/function/**/*.js\"",
+    "test-unit": "deftest -s src -t unit/test -d dest",
+    "test-unit-watch": "deftest -s src -t unit/test -d dest --watch"
   },
   "repository": {
     "type": "git",
@@ -22,11 +24,21 @@
   },
   "homepage": "https://github.com/LoveKino/knowledge-atlas-builder#readme",
   "devDependencies": {
-    "readme-builder": "0.0.4",
-    "webpack": "^2.3.0"
+    "defcomment": "^0.4.4",
+    "readme-builder": "0.0.4"
   },
   "dependencies": {
+    "bolzano": "^0.1.1",
+    "css-loader": "^0.27.3",
+    "dir-tree-info": "0.0.1",
     "es6-promisify": "^5.0.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "kabanery": "^0.1.6",
+    "mkdirp": "^0.5.1",
+    "quick-steady-theme": "0.0.1",
+    "style-loader": "^0.16.0",
+    "uuid": "^3.0.1",
+    "webpack": "^2.3.0",
     "yargs": "^7.0.2"
   }
 }
