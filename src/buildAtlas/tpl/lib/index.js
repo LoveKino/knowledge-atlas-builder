@@ -7,12 +7,18 @@ let {
 } = require('kabanery');
 
 let {
-    getDirTreeInfo, getTopic
+    getTopic
 } = require('./store');
 
 let DirPanel = require('./view/DirPanel');
 
 let FilePanel = require('./view/filePanel');
+
+let Nav = require('./view/nav');
+
+let {
+    getAtlasPageData
+} = require('./model');
 
 let PageView = view(({
     fileInfo,
@@ -20,7 +26,13 @@ let PageView = view(({
 }, {
     update
 }) => {
+    window.location.hash = `#${fileInfo.path}`;
+
     return n('div', [
+        Nav({
+            path: fileInfo.path
+        }),
+
         fileInfo.type === 'directory' && DirPanel({
             dirTreeInfo: fileInfo,
             onChosenFile: (file) => {
@@ -37,7 +49,7 @@ let PageView = view(({
             }
         }),
 
-        fileInfo.type === 'file' && FilePanel({
+        fileInfo.type === 'file' && topics && FilePanel({
             fileInfo,
             topics
         })
@@ -47,13 +59,8 @@ let PageView = view(({
 let pageView = null;
 
 window.onload = () => {
-    getDirTreeInfo().then((data) => {
-        pageView = PageView({
-            fileInfo: data
-        });
-        // render tree
-        document.body.appendChild(pageView);
-
+    getAtlasPageData().then((pageData) => {
+        pageView = PageView(pageData);
         mount(pageView, document.getElementById('pager'));
     });
 };

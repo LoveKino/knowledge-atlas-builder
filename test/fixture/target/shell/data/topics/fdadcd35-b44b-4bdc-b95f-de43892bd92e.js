@@ -1,1 +1,0 @@
-window.jsData("fdadcd35-b44b-4bdc-b95f-de43892bd92e", [{"start":{"type":"kTopicStart","text":"# kTopicStart","params":{},"lineIndex":2},"content":[{"text":"cd `dirname $0`","lineIndex":3}],"end":{"type":"kTopicEnd","text":"# kTopicEnd","params":{},"lineIndex":4}}]);

@@ -1298,12 +1298,18 @@ let {
 } = __webpack_require__(3);
 
 let {
-    getDirTreeInfo, getTopic
+    getTopic
 } = __webpack_require__(35);
 
 let DirPanel = __webpack_require__(37);
 
 let FilePanel = __webpack_require__(38);
+
+let Nav = __webpack_require__(53);
+
+let {
+    getAtlasPageData
+} = __webpack_require__(54);
 
 let PageView = view(({
     fileInfo,
@@ -1311,7 +1317,13 @@ let PageView = view(({
 }, {
     update
 }) => {
+    window.location.hash = `#${fileInfo.path}`;
+
     return n('div', [
+        Nav({
+            path: fileInfo.path
+        }),
+
         fileInfo.type === 'directory' && DirPanel({
             dirTreeInfo: fileInfo,
             onChosenFile: (file) => {
@@ -1328,7 +1340,7 @@ let PageView = view(({
             }
         }),
 
-        fileInfo.type === 'file' && FilePanel({
+        fileInfo.type === 'file' && topics && FilePanel({
             fileInfo,
             topics
         })
@@ -1338,13 +1350,8 @@ let PageView = view(({
 let pageView = null;
 
 window.onload = () => {
-    getDirTreeInfo().then((data) => {
-        pageView = PageView({
-            fileInfo: data
-        });
-        // render tree
-        document.body.appendChild(pageView);
-
+    getAtlasPageData().then((pageData) => {
+        pageView = PageView(pageData);
         mount(pageView, document.getElementById('pager'));
     });
 };
@@ -3521,6 +3528,100 @@ let renderTopic = (topic) => {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(12);
+
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+let {
+    view, n
+} = __webpack_require__(3);
+
+module.exports = view(({
+    path
+}) => {
+    let parts = path.split('/');
+
+    return n('div', [
+        parts.map((part) => {
+            return n('a', [part]);
+        })
+    ]);
+});
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+let {
+    getDirTreeInfo, getTopic
+} = __webpack_require__(35);
+
+
+let findFile = (data, path) => {
+    return findFileByParts(data, path.split('/'));
+};
+
+let findFileByParts = (data, parts) => {
+    if (!parts.length) return data;
+    return findFileByParts(getNextFile(data, parts[0]), parts.slice(1));
+};
+
+let getNextFile = (data, name) => {
+    if (data.type === 'directory') {
+        return data.files.find((file) => file.name === name);
+    }
+};
+
+let getAtlasPageData = () => {
+    return getDirTreeInfo().then((data) => {
+        let path = window.location.hash;
+        path = path.substring(1);
+
+        let fileInfo = data;
+        if (path) {
+            fileInfo = findFile(data, path);
+        }
+
+        let pageData = {
+            fileInfo
+        };
+        if (fileInfo.type === 'file') {
+            return getTopic(fileInfo.path).then((topics) => {
+                pageData.topics = topics;
+                return pageData;
+            });
+        } else {
+            return pageData;
+        }
+    });
+};
+
+module.exports = {
+    findFile,
+    getAtlasPageData
+};
 
 
 /***/ })
