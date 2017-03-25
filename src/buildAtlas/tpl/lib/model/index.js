@@ -20,11 +20,8 @@ let getNextFile = (data, name) => {
     }
 };
 
-let getAtlasPageData = () => {
+let getAtlasPageData = (path) => {
     return getDirTreeInfo().then((data) => {
-        let path = window.location.hash;
-        path = path.substring(1);
-
         let fileInfo = data;
         if (path) {
             fileInfo = findFile(data, path);

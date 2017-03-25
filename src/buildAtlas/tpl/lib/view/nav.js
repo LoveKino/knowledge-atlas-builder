@@ -5,13 +5,36 @@ let {
 } = require('kabanery');
 
 module.exports = view(({
-    path
+    path,
+    onNav
 }) => {
     let parts = path.split('/');
 
-    return n('div', [
-        parts.map((part) => {
-            return n('a', [part]);
+    parts.unshift('root');
+
+    return n('div', {
+        style: {
+            padding: 10,
+            display: 'inline-block'
+        }
+    }, [
+        parts.map((part, index) => {
+            return n('span', [
+                n('a', {
+                    style: {
+                        color: '#3b3a36'
+                    },
+                    onclick: () => {
+                        onNav && onNav(part, index, parts);
+                    }
+                }, [part]),
+
+                index !== parts.length - 1 && n('a', {
+                    style: {
+                        color: '#3b3a36'
+                    }
+                }, '>')
+            ]);
         })
     ]);
 });

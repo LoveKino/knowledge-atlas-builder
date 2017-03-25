@@ -1321,7 +1321,18 @@ let PageView = view(({
 
     return n('div', [
         Nav({
-            path: fileInfo.path
+            path: fileInfo.path,
+            onNav: (part, index, parts) => {
+                let path = parts.slice(1, index + 1).join('/');
+                getAtlasPageData(path).then(({
+                    fileInfo, topics
+                }) => {
+                    update([
+                        ['fileInfo', fileInfo],
+                        ['topics', topics]
+                    ]);
+                });
+            }
         }),
 
         fileInfo.type === 'directory' && DirPanel({
@@ -1350,7 +1361,10 @@ let PageView = view(({
 let pageView = null;
 
 window.onload = () => {
-    getAtlasPageData().then((pageData) => {
+    let path = window.location.hash;
+    path = path.substring(1);
+
+    getAtlasPageData(path).then((pageData) => {
         pageView = PageView(pageData);
         mount(pageView, document.getElementById('pager'));
     });
@@ -3555,13 +3569,36 @@ let {
 } = __webpack_require__(3);
 
 module.exports = view(({
-    path
+    path,
+    onNav
 }) => {
     let parts = path.split('/');
 
-    return n('div', [
-        parts.map((part) => {
-            return n('a', [part]);
+    parts.unshift('root');
+
+    return n('div', {
+        style: {
+            padding: 10,
+            display: 'inline-block'
+        }
+    }, [
+        parts.map((part, index) => {
+            return n('span', [
+                n('a', {
+                    style: {
+                        color: '#3b3a36'
+                    },
+                    onclick: () => {
+                        onNav && onNav(part, index, parts);
+                    }
+                }, [part]),
+
+                index !== parts.length - 1 && n('a', {
+                    style: {
+                        color: '#3b3a36'
+                    }
+                }, '>')
+            ]);
         })
     ]);
 });
@@ -3594,11 +3631,8 @@ let getNextFile = (data, name) => {
     }
 };
 
-let getAtlasPageData = () => {
+let getAtlasPageData = (path) => {
     return getDirTreeInfo().then((data) => {
-        let path = window.location.hash;
-        path = path.substring(1);
-
         let fileInfo = data;
         if (path) {
             fileInfo = findFile(data, path);

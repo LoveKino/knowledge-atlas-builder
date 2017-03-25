@@ -30,7 +30,18 @@ let PageView = view(({
 
     return n('div', [
         Nav({
-            path: fileInfo.path
+            path: fileInfo.path,
+            onNav: (part, index, parts) => {
+                let path = parts.slice(1, index + 1).join('/');
+                getAtlasPageData(path).then(({
+                    fileInfo, topics
+                }) => {
+                    update([
+                        ['fileInfo', fileInfo],
+                        ['topics', topics]
+                    ]);
+                });
+            }
         }),
 
         fileInfo.type === 'directory' && DirPanel({
@@ -59,7 +70,10 @@ let PageView = view(({
 let pageView = null;
 
 window.onload = () => {
-    getAtlasPageData().then((pageData) => {
+    let path = window.location.hash;
+    path = path.substring(1);
+
+    getAtlasPageData(path).then((pageData) => {
         pageView = PageView(pageData);
         mount(pageView, document.getElementById('pager'));
     });
