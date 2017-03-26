@@ -1,1 +1,1 @@
-window.jsData("topicPathMap", {"basic.sh":"f165440e-fa5e-4afe-9651-bc07c95c4baf","more.sh":"200b6aa2-7e03-4b03-92a1-ec4592383ee7","next/admin.sh":"810ad795-e4c5-45c9-9bdb-2df30c377803"});
+window.jsData("topicPathMap", {"basic.sh":"6b512055-4aaa-44ca-840c-bf955a695655","more.sh":"e869482f-76f3-4c93-93d8-d72e6bed4672","next/admin.sh":"718f683b-c190-4225-a5e6-75a65c6a31c0"});

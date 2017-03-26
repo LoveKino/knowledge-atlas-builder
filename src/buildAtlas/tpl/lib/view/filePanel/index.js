@@ -18,11 +18,19 @@ let renderTopic = (topic) => {
             minWidth: '80%'
         }
     }, [
+        renderDescription(topic),
+
         // render content
         renderContent(topic),
 
         // render console
         renderConsole(topic)
+    ]);
+};
+
+let renderDescription = (topic) => {
+    return n('div', [
+        innerHtmlNode(topic.description)
     ]);
 };
 

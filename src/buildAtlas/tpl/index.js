@@ -3159,7 +3159,7 @@ module.exports = view(({
 
             map(files, (file, index) => {
                 return renderNode(mergeMap(getCornerPosition(unitCorW, unitCorH, alph, index, 50, centerY, centerX, centerY), {
-                    text: file.name,
+                    text: basename(file.name),
                     uw: unitCorW,
                     uh: unitCorH,
                     color: 'rgba(0, 53, 64, 1)',
@@ -3169,6 +3169,21 @@ module.exports = view(({
         ])
     ]);
 });
+
+let basename = (fileName) => {
+    let parts = fileName.split('.');
+    if(parts.length > 1) return parts.slice(0, -1).join('.');
+    return fileName;
+};
+
+/*
+let offset = (p, dp) => {
+    return {
+        x: p.x - dp.x,
+        y: p.y - dp.y
+    };
+};
+*/
 
 let renderNode = ({
     text,
@@ -3269,11 +3284,19 @@ let renderTopic = (topic) => {
             minWidth: '80%'
         }
     }, [
+        renderDescription(topic),
+
         // render content
         renderContent(topic),
 
         // render console
         renderConsole(topic)
+    ]);
+};
+
+let renderDescription = (topic) => {
+    return n('div', [
+        innerHtmlNode(topic.description)
     ]);
 };
 

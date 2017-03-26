@@ -13,11 +13,24 @@ module.exports = (topic, fileInfo) => {
     // parse content
     topic.content = format === 'md' ? marked(contentStr) : contentStr;
 
+    topic.description = marked(getTopicDescription(topic));
+
     // console
     return Promise.resolve(getConsole(topic, fileInfo)).then((consoleData) => {
         topic.console = consoleData;
         return topic;
     });
+};
+
+let getTopicDescription = (topic) => {
+    return topic.description.map((des) => {
+        let offset = des.start.text.indexOf(des.start.type);
+        return des.content.map(({
+            text
+        }) => {
+            return text.substring(offset);
+        }).join('\n');
+    }).join('\n');
 };
 
 let getTopicContentFormat = (topic, fileInfo) => {
