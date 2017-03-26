@@ -1,6 +1,7 @@
 'use strict';
 
 require('../../../../node_modules/quick-steady-theme/index.css');
+require('../../../../node_modules/github-markdown-css/github-markdown.css');
 
 let {
     n, view, mount

@@ -6,6 +6,7 @@ let {
 let promisify = require('es6-promisify');
 let path = require('path');
 let fs = require('fs');
+let analysisTopic = require('./analysisTopic');
 let parseText = require('./parseText');
 
 let readFile = promisify(fs.readFile);
@@ -28,10 +29,13 @@ let parseTreeText = (dirTreeInfo, knowledgeDir) => {
         let realPath = path.resolve(knowledgeDir, dirTreeInfo.path);
 
         return [readFile(realPath, 'utf-8').then(parseText).then((topics) => {
-            return {
-                topics,
-                path: dirTreeInfo.path // relative path
-            };
+            // analysis topics
+            return Promise.all(topics.map((topic) => analysisTopic(topic, dirTreeInfo))).then((topics) => {
+                return {
+                    topics,
+                    path: dirTreeInfo.path // relative path
+                };
+            });
         })];
     } else if (dirTreeInfo.type === 'directory') {
         let files = dirTreeInfo.files;
