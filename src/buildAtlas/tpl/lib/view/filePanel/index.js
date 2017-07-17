@@ -37,9 +37,14 @@ let renderDescription = (topic) => {
 let renderContent = (topic) => {
     return n('div', [
         // render content
-        topic.format === 'md' ? n('div', [innerHtmlNode(topic.content)]) : n('pre',
-            n('code', [topic.content])
-        )
+        topic.format === 'md' ? n('div', [innerHtmlNode(topic.content)]) : n('pre', {
+            style: {
+                padding: 10,
+                border: '1px solid rgba(200, 200, 200, 0.5)',
+                borderRadius: 5,
+                fontSize: 13
+            }
+        }, n('code', [topic.content]))
     ]);
 };
 

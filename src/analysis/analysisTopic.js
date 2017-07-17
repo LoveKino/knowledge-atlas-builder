@@ -15,6 +15,8 @@ module.exports = (topic, fileInfo) => {
 
     topic.description = marked(getTopicDescription(topic));
 
+    // TODO highlight code
+
     // console
     return Promise.resolve(getConsole(topic, fileInfo)).then((consoleData) => {
         topic.console = consoleData;
